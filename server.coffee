@@ -4,7 +4,12 @@ util = require 'util'
 app = express()
 server = (require 'http').createServer app
 io = (require 'socket.io').listen server
-io.set 'log level', 1
+
+io.configure ->
+  io.set 'log level', 1
+  # Heroku doesn't support real websockets
+  io.set "transports", ["xhr-polling"]
+  io.set "polling duration", 10
 
 server.listen (process.env.PORT || 3000)
 

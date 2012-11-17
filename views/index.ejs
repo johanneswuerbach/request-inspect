@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>var host = "<%= host %>";</script>
+  <%- css('bootstrap') %>
+  <%- css('application') %>
+  <%- js('application') %>
+</head>
+<body>
+  <div class="container">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="#">request-inspect</a>
+        <ul class="nav">
+          <li class="active"><a href="/">Inspector</a></li>
+          <li><a href="/">New session</a></li>
+          <!-- <li><a href="http://johanneswuerbach.net">Homepage</a></li> -->
+        </ul>
+      </div>
+    </div>
+    <div class="row requests">
+    </div>
+  </div>
+  <script id="ready" type="text/x-handlebars-template">
+    <div class="span12">
+      <h4>Ready</h4>
+      <p>Your target url is <code>{{url}}</code></p>
+      <p>
+        Example:
+        <pre>curl -d "hello=world" {{url}}</pre>
+      </p>
+    </div>
+  </script>
+  <script id="request" type="text/x-handlebars-template">
+    <div class="span12">
+      <h4>Request</h4>
+      <table class="table table-striped">
+        <tr>
+          <td>Request Method</td>
+          <td>{{request.method}}</td>
+        </tr>
+      </table>
+      {{#if request.headers}}
+      <h5>Request Headers</h5>
+      <table class="table table-striped">
+        {{#each request.headers}}
+        <tr>
+          <td>{{this.name}}</td>
+          <td>{{this.value}}</td>
+        </tr>
+        {{/each}}
+      </table>
+      {{/if}}
+      {{#if request.query}}
+      <h5>Query String Parameters</h5>
+      <table class="table table-striped">
+        {{#each request.query}}
+        <tr>
+          <td>{{this.name}}</td>
+          <td>{{this.value}}</td>
+        </tr>
+        {{/each}}
+      </table>
+      {{/if}}
+      {{#if request.body}}
+      <h5>Body</h5>
+      <pre>{{request.body}}</pre>
+      {{/if}}
+      </p>
+      <hr />
+    </div>
+  </script>
+</body>
+</html>

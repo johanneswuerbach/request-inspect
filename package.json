@@ -1,0 +1,23 @@
+{
+  "name": "request-inspect",
+  "version": "0.0.1",
+  "description": "Inspect your server-to-server requests.",
+  "main": "server.coffee",
+  "scripts": {
+    "start": "coffee server.coffee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:johanneswuerbach/request-inspect.git"
+  },
+  "dependencies": {
+    "express": "3.0.x",
+    "socket.io": "0.9.x",
+    "coffee-script": "1.4.x",
+    "connect-assets": "2.3.x",
+    "ejs": "0.8.x"
+  },
+  "engines": {
+    "node": "0.8.x"
+  }
+}

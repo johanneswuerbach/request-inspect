@@ -4,11 +4,11 @@ node_js:
 - 0.8
 env:
   global:
-  - secure: ! 'brlwa/pTnyIx1jetVRbF+2Rg4Xokld5MAfVjqiGi9YaqmjWh67c6CIt8DIyb
+  - secure: ! 'UDvxGD7ErKg8bCS0S+H8YMb2JpPPJNMqx/de0FJspv/49IYOV+9bST5L5jWO
 
-      +TzEDv8PP2LZo37491R7BVp362xJyi3izkGtMDUMgOZ31oNUmtREuSN05caC
+      jPw7zQJFCvlEzUNVe7jTICu0/PKYWJ48eq3vuodezkjJ/DTIHdO+R/vbyWuC
 
-      ss2yxcmVTXvnPMgchLYityPyQ55LUds+S4HskN+6i9HhaAWtWG8='
+      SAESFoOOYZqQeBfbrtnFDt6hK7XjGZWPZr3hFQsBUugDH48kO1E='
 after_success:
   - if [[ "$TRAVIS_BRANCH" != "master" || "$TRAVIS_PULL_REQUEST" == "true" ]]; then echo "Do not deploy."; exit 0; fi
   - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh

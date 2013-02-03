@@ -1,0 +1,22 @@
+---
+language: node_js
+node_js:
+- 0.8
+env:
+  global:
+  - secure: ! 'brlwa/pTnyIx1jetVRbF+2Rg4Xokld5MAfVjqiGi9YaqmjWh67c6CIt8DIyb
+
+      +TzEDv8PP2LZo37491R7BVp362xJyi3izkGtMDUMgOZ31oNUmtREuSN05caC
+
+      ss2yxcmVTXvnPMgchLYityPyQ55LUds+S4HskN+6i9HhaAWtWG8='
+after_success:
+  - if [[ "$TRAVIS_BRANCH" != "master" || "$TRAVIS_PULL_REQUEST" == "true" ]]; then echo "Do not deploy."; exit 0; fi
+  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+  - git remote add heroku git@heroku.com:request-inspect.git
+  - echo "Host heroku.com" >> ~/.ssh/config
+  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
+  - echo "   CheckHostIP no" >> ~/.ssh/config
+  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+  - heroku keys:clear
+  - yes | heroku keys:add
+  - yes | git push heroku master

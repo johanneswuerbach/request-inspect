@@ -11,6 +11,12 @@
   <%- js('application') %>
 </head>
 <body>
+  <div class="github-fork-ribbon-wrapper right">
+    <div class="github-fork-ribbon">
+      <a href="https://github.com/johanneswuerbach/request-inspect">Fork me on GitHub</a>
+    </div>
+  </div>
+
   <div class="container">
     <div class="navbar">
       <div class="navbar-inner">
@@ -18,6 +24,7 @@
         <ul class="nav">
           <li class="active"><a href="/">Inspector</a></li>
           <li><a href="/">New session</a></li>
+          <li><a href="https://github.com/johanneswuerbach/request-inspect/issues">Issues</a></li>
           <!-- <li><a href="http://johanneswuerbach.net">Homepage</a></li> -->
         </ul>
       </div>
@@ -27,12 +34,38 @@
   </div>
   <script id="ready" type="text/x-handlebars-template">
     <div class="span12">
-      <h4>Ready</h4>
-      <p>Your target url is <code>{{url}}</code></p>
-      <p>
-        Example:
-        <pre>curl -d "hello=world" {{url}}</pre>
-      </p>
+      <h4>Usage</h4>
+      <h5>Empty response</h5>
+      <p>Your requests to <code>{{url}}</code>, will be displayed here.</p>
+      <h5>Plain response</h5>
+      <p>Send your request to <code>{{url}}/plain/YOUR_RESPONSE</code> and the response will be <code>YOUR_RESPONSE</code>.</p>
+      <h5>JSON response</h5>
+      <p>Send your request to <code>{{url}}/json/ENCODED_JSON</code> and the response will be <code>JSON</code>.</p>
+      <h5>Share the results</h5>
+      <p>To share the printed requests, just share the URL in your location bar.</p>
+      <h4>Examples</h4>
+      <h5>POSTing some data with curl</h5>
+      <pre>&gt; curl* -d "hello=world" {{url}}
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 0</pre>
+      <h5>GETing with a specified plain response</h5>
+      <pre>&gt; curl* {{url}}/plain/some%20text
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 9
+
+some text</pre>
+      <h5>GETing with a specified JSON response</h5>
+      <pre>&gt; curl* {{url}}/json/%7B%22json%22%3A%20%22test%22%7D
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Content-Length: 20
+
+{
+  "json": "test"
+}</pre>
+      * curl used with <code>-D /dev/stdout -o /dev/stdout -s</code>.
     </div>
   </script>
   <script id="request" type="text/x-handlebars-template">

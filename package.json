@@ -1,10 +1,12 @@
 {
   "name": "request-inspect",
   "version": "0.0.1",
-  "description": "Inspect your server-to-server requests.",
+  "description": "Simplifies inspecting of server-to-server requests.",
+  "author": "Johannes Würbach <johannes.wuerbach@googlemail.com>",
   "main": "server.coffee",
   "scripts": {
-    "start": "coffee server.coffee"
+    "start": "./node_modules/coffee-script/bin/coffee server.coffee",
+    "test": "./node_modules/mocha/bin/mocha --compilers coffee:coffee-script --ignore-leaks"
   },
   "repository": {
     "type": "git",
@@ -16,6 +18,13 @@
     "coffee-script": "1.4.x",
     "connect-assets": "2.3.x",
     "ejs": "0.8.x"
+  },
+  "devDependencies" : {
+    "restler": "*",
+    "mocha": "*",
+    "sinon": "*",
+    "chai": "*",
+    "sinon-chai": "*"
   },
   "engines": {
     "node": "0.8.x",

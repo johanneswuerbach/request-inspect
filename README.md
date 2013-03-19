@@ -1,5 +1,5 @@
 # request-inspect #
-[![Build Status](https://travis-ci.org/johanneswuerbach/request-inspect.png?branch=master)](https://travis-ci.org/johanneswuerbach/request-inspect)
+[![Build Status](https://travis-ci.org/johanneswuerbach/request-inspect.png?branch=master)](https://travis-ci.org/johanneswuerbach/request-inspect) [![Dependency Status](https://gemnasium.com/johanneswuerbach/request-inspect.png)](https://gemnasium.com/johanneswuerbach/request-inspect)
 
 Simplifies inspecting of server-to-server requests.
 

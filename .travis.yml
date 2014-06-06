@@ -1,22 +1,10 @@
----
 language: node_js
 node_js:
-- 0.8
-env:
-  global:
-  - secure: ! 'UDvxGD7ErKg8bCS0S+H8YMb2JpPPJNMqx/de0FJspv/49IYOV+9bST5L5jWO
-
-      jPw7zQJFCvlEzUNVe7jTICu0/PKYWJ48eq3vuodezkjJ/DTIHdO+R/vbyWuC
-
-      SAESFoOOYZqQeBfbrtnFDt6hK7XjGZWPZr3hFQsBUugDH48kO1E='
-after_success:
-  - if [[ "$TRAVIS_BRANCH" != "master" || "$TRAVIS_PULL_REQUEST" == "true" ]]; then echo "Do not deploy."; exit 0; fi
-  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-  - git remote add heroku git@heroku.com:request-inspect.git
-  - echo "Host heroku.com" >> ~/.ssh/config
-  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
-  - echo "   CheckHostIP no" >> ~/.ssh/config
-  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
-  - heroku keys:clear
-  - yes | heroku keys:add
-  - yes | git push heroku master
+- 0.10
+deploy:
+  provider: heroku
+  api_key:
+    secure: P/aeYMBJFvJN7jDXSR5zwrWlbeLRtM+CzTW16aFe51Rotd09cnvFb//p9su5uoTE4zmx1AHWK/ZxPqutcu10qrKXcO7jOfvMYtWgDxIR+aSVPyZse9JxLA5YDACVOMmTE52A7YmXqwqCUvxqMD1b0+P3QSr/Y8szjfverd5sSMc=
+  app: request-inspect
+  on:
+    repo: johanneswuerbach/request-inspect

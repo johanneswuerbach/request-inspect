@@ -15,7 +15,7 @@ describe 'Server', ->
   describe '#index', ->
 
     it 'should return 200', (done) ->
-      
+
       rest.get('http://localhost:5000').on 'complete', (data, res) ->
         res.statusCode.should.equal 200
         done()
@@ -31,28 +31,30 @@ describe 'Server', ->
 
       it 'should forward request', (done) ->
         rest.get('http://localhost:5000/forward/?test=a').on 'complete', ->
-          displayRequestSpy.should.have.been.calledWith "forward", 
+          displayRequestSpy.should.have.been.calledWith "forward",
             body: ""
             headers:
-              accept: "*/*"
+              "accept": "*/*"
               "accept-encoding": "gzip, deflate"
-              connection: "keep-alive"
-              host: "localhost:5000"
+              "connection": "keep-alive"
+              "content-length": "0"
+              "host": "localhost:5000"
               "user-agent": "Restler for node.js"
             method: "GET"
-            query: 
+            query:
               test: "a"
           done()
 
       it 'should forward a post body', (done) ->
-        rest.post('http://localhost:5000/post/', {data: { a: 1, b: 2 }}).on 'complete', ->
-          displayRequestSpy.should.have.been.calledWith "post", 
+        post = {data: { a: 1, b: 2 }}
+        rest.post('http://localhost:5000/post/', post).on 'complete', ->
+          displayRequestSpy.should.have.been.calledWith "post",
             body: "a=1&b=2"
             headers:
-              accept: "*/*",
+              accept: "*/*"
               "accept-encoding": "gzip, deflate"
               connection: "keep-alive"
-              "content-length": "7",
+              "content-length": "7"
               "content-type": "application/x-www-form-urlencoded"
               host: "localhost:5000"
               "user-agent": "Restler for node.js"
@@ -61,17 +63,19 @@ describe 'Server', ->
           done()
 
       it 'should remove the headers injected by Heroku', (done) ->
-        headers =
-          "x-forwarded-proto": "x"
-          "x-forwarded-port": "y"
-        rest.get('http://localhost:5000/injected/', {headers: headers}).on 'complete', ->
-          displayRequestSpy.should.have.been.calledWith "injected", 
+        options =
+          headers:
+            "x-forwarded-proto": "x"
+            "x-forwarded-port": "y"
+        rest.get('http://localhost:5000/injected/', options).on 'complete', ->
+          displayRequestSpy.should.have.been.calledWith "injected",
             body: ""
             headers:
-              accept: "*/*",
+              "accept": "*/*"
               "accept-encoding": "gzip, deflate"
-              connection: "keep-alive"
-              host: "localhost:5000"
+              "connection": "keep-alive"
+              "content-length": "0"
+              "host": "localhost:5000"
               "user-agent": "Restler for node.js"
             method: "GET"
             query: {}
@@ -80,17 +84,15 @@ describe 'Server', ->
     describe 'sending the response', ->
 
       it 'should return a plain response', (done) ->
-        rest.get('http://localhost:5000/test/plain/*TEST*').on 'complete', (data) ->
+        plainResponseUrl = 'http://localhost:5000/test/plain/*TEST*'
+        rest.get(plainResponseUrl).on 'complete', (data) ->
           data.should.equal "*TEST*"
           done()
 
       it 'should return a json response', (done) ->
         test = JSON.stringify {test: true, service: "works"}
         encodedJSON = encodeURIComponent test
-        rest.get('http://localhost:5000/test/json/' + encodedJSON).on 'complete', (data) ->
+        jsonResponseUrl = 'http://localhost:5000/test/json/' + encodedJSON
+        rest.get(jsonResponseUrl).on 'complete', (data) ->
           JSON.stringify(data).should.equal test
           done()
-
-
-
-

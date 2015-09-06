@@ -9,8 +9,6 @@ module.exports = class App
 
     @io.configure =>
       @io.set 'log level', 1
-      @io.set "transports", ["xhr-polling"] # Heroku does not support websockets
-      @io.set "polling duration", 10
 
     app.use require('connect-assets')()
     app.engine('.html', require('ejs').__express)
@@ -44,8 +42,8 @@ module.exports = class App
 
     # Remove headers injected by Heroku
     herokuHeaders = [
-      "x-forwarded-proto", "x-forwarded-port", 
-      "x-forwarded-for", "x-heroku-queue-wait-time", 
+      "x-forwarded-proto", "x-forwarded-port",
+      "x-forwarded-for", "x-heroku-queue-wait-time",
       "x-heroku-queue-depth", "x-heroku-dynos-in-use",
       "x-request-start"
     ]
@@ -53,7 +51,7 @@ module.exports = class App
       for header in herokuHeaders
         delete request.headers[header]
 
-    # Send the request into the room 
+    # Send the request into the room
     @displayRequest UUID, request
 
     # Send response, if requested
